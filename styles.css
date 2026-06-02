@@ -66,6 +66,11 @@ p {
   box-shadow: 0 20px 44px rgba(17, 17, 19, 0.28);
 }
 
+.whatsapp-float-icon {
+  width: 31px;
+  height: 31px;
+}
+
 .site-header {
   position: fixed;
   z-index: 30;
