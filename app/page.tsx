@@ -1,5 +1,6 @@
 import { Header } from "@/app/components/Header";
 import { Hero } from "@/app/components/Hero";
+import { ApplicationForm } from "@/app/components/ApplicationForm";
 import { programs } from "@/app/data/programs";
 
 export default function Home() {
@@ -245,58 +246,7 @@ export default function Home() {
                 program.
               </p>
             </div>
-            <form
-              className="application-form"
-              action="mailto:hi@aiforx.org"
-              method="post"
-              encType="text/plain"
-            >
-              <label>
-                Name
-                <input name="name" type="text" autoComplete="name" required />
-              </label>
-              <label>
-                Phone / WhatsApp
-                <input name="phone" type="tel" autoComplete="tel" required />
-              </label>
-              <label>
-                Program interest
-                <select name="program" required defaultValue="">
-                  <option value="" disabled>
-                    Select one
-                  </option>
-                  {programs.map((program) => (
-                    <option value={program.slug} key={program.slug}>
-                      {program.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Business name
-                <input name="business" type="text" required />
-              </label>
-              <label>
-                Your role
-                <input
-                  name="role"
-                  type="text"
-                  placeholder="Founder, operator, CEO, partner..."
-                  required
-                />
-              </label>
-              <label>
-                Biggest operating problem you want AI to help with
-                <textarea name="operating_problem" rows={4} required />
-              </label>
-              <button className="button primary" type="submit">
-                Send Application
-              </button>
-              <p className="form-note">
-                Application call required. Payment details depend on the selected
-                program.
-              </p>
-            </form>
+            <ApplicationForm programs={programs} />
           </div>
         </section>
       </main>

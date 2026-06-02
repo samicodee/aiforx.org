@@ -556,6 +556,14 @@ blockquote {
   box-shadow: var(--shadow);
 }
 
+.application-form > input[name="company_website"] {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 label {
   display: grid;
   gap: 8px;
@@ -582,6 +590,14 @@ textarea {
 
 .form-note {
   font-size: 13px;
+}
+
+.form-note.is-success {
+  color: #0f7a42;
+}
+
+.form-note.is-error {
+  color: var(--red-dark);
 }
 
 .site-footer {
@@ -631,6 +647,161 @@ textarea {
   width: max-content;
 }
 
+.admin-page {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.admin-shell {
+  width: min(1380px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0;
+}
+
+.admin-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 22px;
+}
+
+.admin-heading h1 {
+  margin-top: 8px;
+  font-size: clamp(36px, 6vw, 72px);
+}
+
+.admin-auth {
+  width: min(640px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+}
+
+.admin-status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 14px;
+}
+
+.admin-status-bar button,
+.admin-small-button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  color: var(--ink);
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.admin-status-bar button.is-active {
+  color: #fff;
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+}
+
+.admin-status-bar span {
+  margin-left: 6px;
+  color: var(--red);
+}
+
+.admin-message {
+  min-height: 24px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.admin-login-panel {
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.admin-login-panel h2 {
+  font-size: 28px;
+}
+
+.admin-login-panel p {
+  margin-top: 8px;
+}
+
+.lead-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.lead-table {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: collapse;
+}
+
+.lead-table th,
+.lead-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.lead-table th {
+  color: var(--muted);
+  background: #faf9f6;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lead-table td {
+  font-size: 14px;
+}
+
+.lead-table strong,
+.lead-table span,
+.lead-table small {
+  display: block;
+}
+
+.lead-table strong {
+  margin-bottom: 4px;
+}
+
+.lead-table span,
+.lead-table small {
+  color: var(--muted);
+}
+
+.lead-table p {
+  max-width: 360px;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.lead-table select,
+.lead-table textarea {
+  min-width: 180px;
+}
+
+.lead-table textarea {
+  min-width: 260px;
+}
+
+.admin-small-button {
+  margin-top: 10px;
+}
+
 @media (max-width: 960px) {
   .site-header {
     grid-template-columns: 1fr auto;
@@ -650,6 +821,12 @@ textarea {
   .workflow-grid,
   .cohort-grid,
   .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-heading,
+  .admin-auth {
+    display: grid;
     grid-template-columns: 1fr;
   }
 

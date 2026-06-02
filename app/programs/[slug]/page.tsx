@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ApplicationForm } from "@/app/components/ApplicationForm";
 import { Header } from "@/app/components/Header";
 import { getProgram, programs } from "@/app/data/programs";
 
@@ -99,37 +100,14 @@ export default async function ProgramPage({ params }: ProgramPageProps) {
               <p className="kicker">Application</p>
               <h2>Apply for {program.title}.</h2>
               <p>
-                Submit interest for this track. The full backend application
-                flow will replace this mail form in the next build phase.
+                Submit interest for this track. If there is fit, the next step
+                is an application call.
               </p>
             </div>
-            <form
-              className="application-form"
-              action="mailto:hi@aiforx.org"
-              method="post"
-              encType="text/plain"
-            >
-              <input type="hidden" name="program" value={program.slug} />
-              <label>
-                Name
-                <input name="name" type="text" autoComplete="name" required />
-              </label>
-              <label>
-                Phone / WhatsApp
-                <input name="phone" type="tel" autoComplete="tel" required />
-              </label>
-              <label>
-                Business / organization
-                <input name="business" type="text" required />
-              </label>
-              <label>
-                What do you want AI to help with?
-                <textarea name="operating_problem" rows={4} required />
-              </label>
-              <button className="button primary" type="submit">
-                Send Application
-              </button>
-            </form>
+            <ApplicationForm
+              defaultProgram={program.slug}
+              showProgramSelect={false}
+            />
           </div>
         </section>
       </main>
