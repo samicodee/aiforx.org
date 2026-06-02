@@ -4,6 +4,8 @@ import { programs } from "@/app/data/programs";
 import { leadStatuses, type LeadStatus } from "@/app/lib/lead-statuses";
 
 const MAX_FIELD_LENGTH = 1200;
+const SHARED_LEADS_TABLE = "aiforx_leads";
+const FOUNDERS_LEADS_TABLE = "leads";
 
 export type LeadInput = {
   name: string;
@@ -21,6 +23,7 @@ export type LeadInput = {
 export type LeadRecord = Omit<LeadInput, "company_website"> & {
   id: string;
   createdAt: string;
+  storage_table: string;
   status: LeadStatus;
   notes: string;
   last_contacted_at: string | null;
@@ -155,13 +158,14 @@ function getSupabaseAdmin() {
 }
 
 function getLeadsTable() {
-  return process.env.AIFORX_LEADS_TABLE || "aiforx_leads";
+  return process.env.AIFORX_LEADS_TABLE || SHARED_LEADS_TABLE;
 }
 
-function mapLeadRow(row: LeadRow): LeadRecord {
+function mapLeadRow(row: LeadRow, tableName = getLeadsTable()): LeadRecord {
   return {
-    id: row.id,
+    id: `${tableName}:${row.id}`,
     createdAt: row.created_at,
+    storage_table: tableName,
     name: row.name,
     phone: row.phone,
     email: row.email,
@@ -205,10 +209,10 @@ export async function saveLead(input: LeadInput): Promise<LeadRecord> {
   return mapLeadRow(data);
 }
 
-export async function readLeads(): Promise<LeadRecord[]> {
+async function readLeadsFromTable(tableName: string): Promise<LeadRecord[]> {
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
-    .from(getLeadsTable())
+    .from(tableName)
     .select(
       "id, created_at, name, phone, email, program, source_domain, business, role, business_stage, problem_statement, status, notes, last_contacted_at",
     )
@@ -216,10 +220,28 @@ export async function readLeads(): Promise<LeadRecord[]> {
     .returns<LeadRow[]>();
 
   if (error) {
-    throw new Error(`Could not read leads: ${error.message}`);
+    if (tableName === FOUNDERS_LEADS_TABLE && error.code === "42P01") {
+      return [];
+    }
+
+    throw new Error(`Could not read ${tableName}: ${error.message}`);
   }
 
-  return data.map(mapLeadRow);
+  return data.map((row) => mapLeadRow(row, tableName));
+}
+
+export async function readLeads(): Promise<LeadRecord[]> {
+  const leads = await Promise.all([
+    readLeadsFromTable(getLeadsTable()),
+    readLeadsFromTable(FOUNDERS_LEADS_TABLE),
+  ]);
+
+  return leads
+    .flat()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 }
 
 export async function updateLead(
@@ -232,6 +254,15 @@ export async function updateLead(
 ): Promise<LeadRecord> {
   if (!id) {
     throw new Error("Missing lead id.");
+  }
+
+  const separatorIndex = id.indexOf(":");
+  const tableName =
+    separatorIndex > 0 ? id.slice(0, separatorIndex) : getLeadsTable();
+  const rowId = separatorIndex > 0 ? id.slice(separatorIndex + 1) : id;
+
+  if (![getLeadsTable(), FOUNDERS_LEADS_TABLE].includes(tableName)) {
+    throw new Error("Invalid lead source.");
   }
 
   const updates: {
@@ -265,9 +296,9 @@ export async function updateLead(
 
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
-    .from(getLeadsTable())
+    .from(tableName)
     .update(updates)
-    .eq("id", id)
+    .eq("id", rowId)
     .select(
       "id, created_at, name, phone, email, program, source_domain, business, role, business_stage, problem_statement, status, notes, last_contacted_at",
     )
@@ -277,5 +308,5 @@ export async function updateLead(
     throw new Error(`Could not update lead: ${error.message}`);
   }
 
-  return mapLeadRow(data);
+  return mapLeadRow(data, tableName);
 }

@@ -11,6 +11,8 @@ type Lead = {
   email: string;
   business: string;
   program: string;
+  source_domain: string;
+  storage_table: string;
   role: string;
   business_stage: string;
   problem_statement: string;
@@ -33,6 +35,13 @@ const statusLabels: Record<LeadStatus, string> = {
   rejected: "Rejected",
 };
 
+const sourceLabels: Record<string, string> = {
+  "aiforx.org": "AIforX",
+  "aiforfounders.org": "Founders",
+  "aiforengineers.org": "Engineers",
+  "aiforsaudi.org": "Saudi",
+};
+
 function formatDate(value: string | null) {
   if (!value) {
     return "-";
@@ -50,17 +59,24 @@ export function AdminLeads() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [activeStatus, setActiveStatus] = useState<LeadStatus | "all">("all");
+  const [activeSource, setActiveSource] = useState("all");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [savingLeadId, setSavingLeadId] = useState<string | null>(null);
 
   const filteredLeads = useMemo(() => {
-    if (activeStatus === "all") {
-      return leads;
-    }
+    return leads.filter((lead) => {
+      const statusMatches = activeStatus === "all" || lead.status === activeStatus;
+      const sourceMatches =
+        activeSource === "all" || lead.source_domain === activeSource;
 
-    return leads.filter((lead) => lead.status === activeStatus);
-  }, [activeStatus, leads]);
+      return statusMatches && sourceMatches;
+    });
+  }, [activeSource, activeStatus, leads]);
+
+  const sources = useMemo(() => {
+    return Array.from(new Set(leads.map((lead) => lead.source_domain))).sort();
+  }, [leads]);
 
   const counts = useMemo(() => {
     return leadStatuses.reduce(
@@ -251,6 +267,27 @@ export function AdminLeads() {
               ))}
             </div>
 
+            <div className="admin-status-bar source-bar">
+              <button
+                className={activeSource === "all" ? "is-active" : ""}
+                onClick={() => setActiveSource("all")}
+                type="button"
+              >
+                All Sources <span>{leads.length}</span>
+              </button>
+              {sources.map((source) => (
+                <button
+                  className={activeSource === source ? "is-active" : ""}
+                  key={source}
+                  onClick={() => setActiveSource(source)}
+                  type="button"
+                >
+                  {sourceLabels[source] ?? source}
+                  <span>{leads.filter((lead) => lead.source_domain === source).length}</span>
+                </button>
+              ))}
+            </div>
+
             <div className="lead-table-wrap">
               <table className="lead-table">
                 <thead>
@@ -277,7 +314,11 @@ export function AdminLeads() {
                         <span>{lead.role}</span>
                         <p>{lead.problem_statement}</p>
                       </td>
-                      <td>{lead.business_stage || lead.program}</td>
+                      <td>
+                        <strong>{sourceLabels[lead.source_domain] ?? lead.source_domain}</strong>
+                        <span>{lead.program}</span>
+                        <small>{lead.business_stage || "-"}</small>
+                      </td>
                       <td>
                         <select
                           value={lead.status}
