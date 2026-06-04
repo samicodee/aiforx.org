@@ -1,38 +1,38 @@
-# AIFORX
+# AIforSaudi
 
-AIFORX is an applied AI education platform for non-technical working professionals in India and the Middle East.
+AIforSaudi is a Saudi-focused applied AI education site for founders, operators, engineers, doctors, businesses, and institutions.
 
-The first flagship offer is **AI for Operators**: a Hyderabad-first, 2-day in-person workshop for founder-operators running Rs 1Cr-25Cr businesses.
+The app is built with Next.js App Router and deployed on Vercel.
 
 ## Current App
 
-- `app/page.tsx` - AIforX homepage and program selector
-- `app/programs/[slug]/page.tsx` - dynamic program pages
-- `app/data/programs.ts` - shared program data for homepage, hero rotation, and program routes
+- `app/page.tsx` - AIforSaudi landing page
+- `app/api/applications/route.ts` - application form receiver
+- `app/thank-you/page.tsx` - post-application thank-you page
+- `app/programs/[slug]/page.tsx` - role-track program pages
+- `app/data/programs.ts` - shared program data
 - `styles.css` - shared site styling imported by `app/globals.css`
-- `AIFORX_CONTEXT.md` - durable project positioning context
-- `docs/offer/offer-brief.md` - full cohort 1 offer definition
-- `docs/curriculum/workshop-agenda.md` - 2-day workshop agenda
-- `docs/sales/application-form.md` - application form questions and scoring
-- `docs/sales/sales-call-script.md` - qualification and close script
-- `docs/delivery/90-day-support-plan.md` - post-workshop support rhythm
-- `docs/launch/launch-checklist.md` - launch operations checklist
+- `public/brand/` - AIforSaudi brand assets
 
-## Positioning
+## Application Backend
 
-Not an AI tools workshop. Not an AI engineering bootcamp.
+The application form posts to:
 
-AIFORX teaches founder-operators how to use AI inside real business workflows: ops, sales, hiring, reporting, delegation, and owner bandwidth.
+```text
+/api/applications/
+```
 
-## Cohort 1 Defaults
+The route validates the required form fields and redirects successful submissions to:
 
-- Offer: AI for Operators
-- Location: Hyderabad
-- Format: 2 days in person, Saturday-Sunday
-- Price: Rs 60,000 full pay only
-- Cohort: 25-35 founder-operators
-- Support: 90 days, WhatsApp group, 6 biweekly clinics
-- Tools: ChatGPT/Claude/Gemini, Google Sheets, Docs, Forms
+```text
+/thank-you?status=received
+```
+
+Optional delivery integrations can be configured with Vercel environment variables:
+
+- `APPLICATION_WEBHOOK_URL` - forwards submissions to a webhook as JSON
+- `RESEND_API_KEY` and `APPLICATION_TO_EMAIL` - emails submissions through Resend
+- `APPLICATION_FROM_EMAIL` - optional sender override for Resend
 
 ## Development
 

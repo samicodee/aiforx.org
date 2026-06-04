@@ -9,3 +9,7 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 .vercel
+tools/whatsapp-agent/.wwebjs_auth/
+tools/whatsapp-agent/.wwebjs_cache/
+tools/whatsapp-agent/.chrome-profile/
+tools/whatsapp-agent/data/

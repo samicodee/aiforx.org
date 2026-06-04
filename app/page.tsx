@@ -1,263 +1,252 @@
 import { Header } from "@/app/components/Header";
-import { Hero } from "@/app/components/Hero";
-import { ApplicationForm } from "@/app/components/ApplicationForm";
-import { programs } from "@/app/data/programs";
+
+const programs = [
+  {
+    num: "01",
+    title: "AI for Founders",
+    copy: "Founder leverage for decisions, sales, hiring, delegation, and weekly business rhythm. For owners who carry the company in their head.",
+    href: "/founders",
+  },
+  {
+    num: "02",
+    title: "AI for Operators",
+    copy: "Practical systems for reporting, SOPs, delegation, follow-ups, procurement, and team execution. For people running the business.",
+    href: "/operators",
+  },
+  {
+    num: "03",
+    title: "AI for Engineers",
+    copy: "For civil, mechanical, electrical, production, and project engineers who need AI for reports, site work, and documentation. No code.",
+    href: "/engineers",
+  },
+];
+
+const values = [
+  {
+    title: "No coding required",
+    copy: "Every program is built for professionals who do real business and engineering work, not software people.",
+  },
+  {
+    title: "Real workflows",
+    copy: "Every session ends with working prompts, templates, dashboards, and operating habits you can use the next morning.",
+  },
+  {
+    title: "Role-based learning",
+    copy: "Founders, operators, and engineers have different problems. Each track is built for the actual daily work of that role.",
+  },
+];
+
+const regions = [
+  {
+    name: "India",
+    detail: "Hyderabad-first. Open cohorts for founders, operators, and engineers across India.",
+    flag: "🇮🇳",
+  },
+  {
+    name: "Saudi Arabia",
+    detail: "Vision 2030-aligned programs for Saudi founders, operators, and engineers.",
+    flag: "🇸🇦",
+    link: "aiforsaudi.org",
+    href: "https://www.aiforsaudi.org",
+  },
+  {
+    name: "Middle East & Global",
+    detail: "Private cohorts and company workshops for teams across the region and beyond.",
+    flag: "🌍",
+  },
+];
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main id="top">
-        <Hero />
-
-        <section id="programs" className="program-section">
-          <div className="program-inner">
-            <div className="program-heading">
-              <p className="system-label">Select the AIforX track for your work</p>
-              <h2>Different roles need different AI systems.</h2>
+      <main>
+        {/* Hero */}
+        <section className="hero">
+          <img
+            className="hero-image"
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2400&q=84"
+            alt=""
+            aria-hidden="true"
+          />
+          <div className="hero-overlay" aria-hidden="true" />
+          <div className="hero-inner">
+            <p className="kicker">AI for Founders · Operators · Engineers</p>
+            <h1>Applied AI for real work.</h1>
+            <p className="hero-copy">
+              India first. Built for the world. Practical AI education and implementation
+              for founders, operators, and engineers who need daily leverage — not coding theory.
+            </p>
+            <div className="hero-actions">
+              <a className="button primary" href="#programs">
+                Explore Programs
+              </a>
+              <a className="button secondary" href="#apply">
+                Apply Now
+              </a>
             </div>
-            <div className="program-grid">
-              {programs.map((program) => (
-                <a
-                  className={`program-card ${
-                    program.slug === "operators" ? "is-featured" : ""
-                  }`}
-                  href={`/programs/${program.slug}/`}
-                  key={program.slug}
-                >
-                  <span>{program.order}</span>
-                  <h3>{program.title}</h3>
-                  <p>{program.description}</p>
+            <div className="hero-tags" aria-label="Program highlights">
+              <span>India first</span>
+              <span>No coding</span>
+              <span>3 role tracks</span>
+              <span>Real workflows</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Programs */}
+        <section id="programs" className="programs-section">
+          <div className="programs-inner">
+            <div className="section-heading">
+              <p className="kicker">Three tracks. One platform.</p>
+              <h2>AIforX is built around the roles that run real businesses.</h2>
+              <p>
+                Separate learning paths for founders, operators, and engineers — each built
+                around the actual daily work of that role, not a generic AI overview.
+              </p>
+            </div>
+            <div className="programs-grid">
+              {programs.map((p) => (
+                <a key={p.title} className="program-card" href={p.href}>
+                  <span className="program-card-num">{p.num}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.copy}</p>
+                  <span className="program-card-link">
+                    See the track →
+                  </span>
                 </a>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="why" className="section intro-section">
+        {/* Mission */}
+        <section id="mission" className="section intro-section">
           <div className="section-heading">
-            <p className="kicker">Operational intelligence, not more tool lists</p>
-            <h2>
-              Most businesses do not need another AI demo. They need better
-              operating systems.
-            </h2>
+            <p className="kicker">The Mission</p>
+            <h2>AI should not belong only to software people.</h2>
           </div>
           <div className="intro-copy">
             <p>
-              AIFORX teaches non-technical business leaders how to convert daily
-              work into reusable AI-assisted workflows. The focus is not coding,
-              theory, or AI hype. It is execution.
+              AIforX exists to help everyday professionals across India and the world
+              use AI in the work they already own. The priority is not technical theory.
+              It is capability: better work, better decisions, better communication,
+              and better execution.
+            </p>
+            <p>
+              The focus is founders building companies, operators running systems,
+              and engineers moving work on site, in factories, and inside projects.
+              AIforX shows them what AI can do in their own daily work — starting in India.
             </p>
             <blockquote>
-              Not taught by an AI teacher. Led by an operator who has built and
-              run real businesses.
+              Real work, improved. No coding needed.
             </blockquote>
           </div>
         </section>
 
-        <section className="section leader-section">
-          <div className="leader-panel">
-            <div>
-              <p className="kicker">Built for two kinds of business leaders</p>
-              <h2>Founders who build. Operators who run.</h2>
-            </div>
-            <div className="leader-grid">
-              <article>
-                <span>01</span>
-                <h3>AI for Founders</h3>
-                <p>
-                  For business owners and growth-focused leaders who need more
-                  leverage without adding complexity.
-                </p>
+        {/* Values */}
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="values-grid">
+            {values.map((v) => (
+              <article key={v.title}>
+                <h3>{v.title}</h3>
+                <p>{v.copy}</p>
               </article>
-              <article>
-                <span>02</span>
-                <h3>AI for Operators</h3>
-                <p>
-                  For people responsible for ops, sales, hiring, reporting,
-                  delegation, and day-to-day execution.
-                </p>
-              </article>
-            </div>
+            ))}
           </div>
         </section>
 
-        <section id="workflows" className="section workflow-section">
-          <div className="section-heading wide">
-            <p className="kicker">What you build</p>
-            <h2>Three working AI workflows your business can actually use.</h2>
-            <p>
-              Each workflow is built around practical business output, then
-              converted into prompts, docs, sheets, checklists, and review steps.
-            </p>
-          </div>
-          <div className="workflow-grid">
-            <article>
-              <span className="number">01</span>
-              <h3>Operations</h3>
-              <p>
-                SOPs, daily reporting, vendor/client issue handling, MIS
-                summaries, and owner-level reviews.
-              </p>
-            </article>
-            <article>
-              <span className="number">02</span>
-              <h3>Sales</h3>
-              <p>
-                Lead qualification, follow-ups, proposals, objections, and
-                CRM-style tracking in Google Sheets.
-              </p>
-            </article>
-            <article>
-              <span className="number">03</span>
-              <h3>Hiring & Team</h3>
-              <p>
-                JD drafting, candidate screening, interview scorecards,
-                onboarding, and delegation systems.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section className="tools-band">
-          <div className="tools-inner">
+        {/* Regions */}
+        <section id="regions" className="dark-band">
+          <div className="dark-band-inner">
             <div>
-              <p className="kicker">Simple tool stack</p>
-              <h2>No coding. No complex setup.</h2>
+              <p className="kicker">Where We Operate</p>
+              <h2>India first. Growing globally.</h2>
               <p>
-                We use tools operators can understand quickly: ChatGPT, Claude,
-                Gemini, Google Sheets, Docs, and Forms.
+                AIforX launched in India with a Hyderabad-first cohort strategy.
+                Regional brands serve specific markets with locally-relevant programs
+                under the same practical AI education model.
               </p>
             </div>
-            <div className="tool-list" aria-label="Tools used">
-              <span>ChatGPT</span>
-              <span>Claude</span>
-              <span>Gemini</span>
-              <span>Sheets</span>
-              <span>Docs</span>
-              <span>Forms</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="cohort" className="section cohort-section">
-          <div className="cohort-copy">
-            <p className="kicker">Program formats</p>
-            <h2>Each track can run as a workshop, cohort, or team program.</h2>
-            <p>
-              Pricing, dates, and support change by track. Select the page for
-              your role to see the current offer when that program is live.
-            </p>
-          </div>
-          <div className="cohort-grid">
-            <article>
-              <h3>2-Day Intensives</h3>
-              <p>In-person practical workshops for focused implementation.</p>
-            </article>
-            <article>
-              <h3>Role-Based Cohorts</h3>
-              <p>
-                Separate tracks for founders, operators, doctors, engineers, and
-                teams.
-              </p>
-            </article>
-            <article>
-              <h3>Team Programs</h3>
-              <p>
-                Custom workshops for corporate and SME teams that need practical
-                AI adoption.
-              </p>
-            </article>
-            <article>
-              <h3>Implementation Support</h3>
-              <p>
-                Follow-up support depends on the selected program and cohort
-                format.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section className="section sami-section">
-          <div className="sami-card">
-            <div>
-              <p className="kicker">Led by Sami</p>
-              <h2>Founder. Operator. Builder.</h2>
-            </div>
-            <div>
-              <p>
-                Sami is a Hyderabad-based founder and operator with 10 years
-                across operations, logistics, hospitality, sales, and business
-                building.
-              </p>
-              <p>
-                Built Country Chicken Co., India&apos;s first naturally raised
-                chicken brand.
-              </p>
+            <div className="region-list">
+              {regions.map((r) => (
+                <div key={r.name} className="region-item">
+                  <span style={{ fontSize: 28 }}>{r.flag}</span>
+                  <div>
+                    <strong style={{ display: "block", color: "#fff", marginBottom: 4 }}>
+                      {r.name}
+                      {r.link && (
+                        <>
+                          {" "}
+                          <a href={r.href} target="_blank" rel="noopener noreferrer">
+                            {r.link} ↗
+                          </a>
+                        </>
+                      )}
+                    </strong>
+                    <span style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>
+                      {r.detail}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="section faq-section">
-          <div className="section-heading">
-            <p className="kicker">Clear expectations</p>
-            <h2>What this is, and what it is not.</h2>
-          </div>
-          <div className="faq-grid">
-            <article>
-              <h3>Is this technical?</h3>
-              <p>
-                No. It is built for non-technical founders and operators using
-                AI tools, Docs, Sheets, and Forms.
-              </p>
-            </article>
-            <article>
-              <h3>Will I get a deployed app?</h3>
-              <p>
-                No. The promise is working operating workflows, not custom
-                software or hosted apps.
-              </p>
-            </article>
-            <article>
-              <h3>I already use ChatGPT. Is this useful?</h3>
-              <p>
-                Yes, if your use is still ad hoc. This workshop turns AI into
-                repeatable business workflows.
-              </p>
-            </article>
-            <article>
-              <h3>Why application-led?</h3>
-              <p>
-                The room is for operators with real business pain, decision
-                authority, and implementation intent.
-              </p>
-            </article>
-          </div>
-        </section>
-
+        {/* Apply */}
         <section id="apply" className="apply-section">
           <div className="apply-inner">
             <div className="apply-copy">
-              <p className="kicker">Program application</p>
-              <h2>Apply for AIforX.</h2>
+              <p className="kicker" style={{ color: "rgba(100,140,255,0.9)" }}>Apply Now</p>
+              <h2>Join a founder, operator, or engineer cohort.</h2>
               <p>
-                If there is fit, the next step is an application call. Your seat
-                is confirmed only after acceptance and payment for the selected
-                program.
+                Open cohorts in India and private company workshops globally.
+                The first call confirms your role, program fit, and implementation goals.
               </p>
             </div>
-            <ApplicationForm programs={programs} />
+            <form className="apply-form" action="/api/applications/" method="post">
+              <input type="hidden" name="source" value="homepage" />
+              <label>
+                Name
+                <input name="name" type="text" autoComplete="name" required />
+              </label>
+              <label>
+                Phone / WhatsApp
+                <input name="phone" type="tel" autoComplete="tel" required />
+              </label>
+              <label>
+                Track
+                <select name="track" required defaultValue="">
+                  <option value="" disabled>Select one</option>
+                  <option value="founders">AI for Founders</option>
+                  <option value="operators">AI for Operators</option>
+                  <option value="engineers">AI for Engineers</option>
+                  <option value="company">Company / Team Cohort</option>
+                </select>
+              </label>
+              <label>
+                Company / organization
+                <input name="company" type="text" required />
+              </label>
+              <label>
+                What work should AI improve first?
+                <textarea name="priority" rows={3} required />
+              </label>
+              <p className="form-note">
+                By submitting, you agree we may contact you on WhatsApp about your cohort.
+              </p>
+              <button className="button primary" type="submit" style={{ width: "100%" }}>
+                Send Application
+              </button>
+            </form>
           </div>
         </section>
       </main>
 
       <footer className="site-footer">
-        <span className="wordmark">
-          AIfor<span>X</span>
-        </span>
-        <span>
-          AI for real work. Operational intelligence for real businesses.
-        </span>
+        <span className="wordmark">AI for <span>X</span></span>
+        <span>Applied AI for founders, operators, and engineers. India and the world.</span>
       </footer>
     </>
   );
