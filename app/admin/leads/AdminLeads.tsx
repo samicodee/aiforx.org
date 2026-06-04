@@ -41,6 +41,7 @@ const statusLabels: Record<LeadStatus, string> = {
 const sourceLabels: Record<string, string> = {
   "aiforx.org": "AIforX",
   "aiforfounders.org": "Founders",
+  "aiforoperators.org": "Operators",
   "aiforengineers.org": "Engineers",
   "aiforsaudi.org": "Saudi",
 };

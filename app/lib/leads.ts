@@ -118,7 +118,14 @@ export function validateLeadInput(input: unknown): ValidationResult {
     errors.program = "Select a valid program.";
   }
 
-  if (data.source_domain && data.source_domain !== "aiforx.org") {
+  const knownDomains = [
+    "aiforx.org",
+    "aiforfounders.org",
+    "aiforoperators.org",
+    "aiforengineers.org",
+    "aiforsaudi.org",
+  ];
+  if (data.source_domain && !knownDomains.includes(data.source_domain)) {
     errors.source_domain = "Invalid source domain.";
   }
 
