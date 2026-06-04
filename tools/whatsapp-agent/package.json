@@ -1,0 +1,19 @@
+{
+  "name": "aiforx-whatsapp-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dry-run": "DRY_RUN=1 node src/index.js",
+    "live": "DRY_RUN=0 node src/index.js",
+    "inbox": "node src/inbox.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.26.0"
+  }
+}

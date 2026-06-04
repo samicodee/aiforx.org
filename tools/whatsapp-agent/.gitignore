@@ -1,0 +1,14 @@
+# Secrets
+.env
+
+# Runtime data
+data/
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# OS
+.DS_Store
