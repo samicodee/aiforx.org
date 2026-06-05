@@ -740,3 +740,695 @@ textarea {
   width: 31px;
   height: 31px;
 }
+
+/* ═══════════════════════════════════════════
+   Admin Leads Dashboard
+   ═══════════════════════════════════════════ */
+
+/* Status colours */
+:root {
+  --status-new:       #2456c8;
+  --status-contacted: #d97706;
+  --status-qualified: #7c3aed;
+  --status-accepted:  #059669;
+  --status-rejected:  #dc2626;
+}
+
+.admin-page {
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.admin-shell {
+  width: min(1380px, calc(100% - 36px));
+  margin: 0 auto;
+  padding: 36px 0 72px;
+}
+
+/* ── Header row ── */
+.admin-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+
+.admin-heading h1 {
+  font-size: clamp(28px, 3.6vw, 44px);
+  margin-top: 8px;
+  line-height: 1.06;
+}
+
+.admin-heading > div > p:not(.kicker) {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ── Auth area ── */
+.admin-auth {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-auth input {
+  width: 160px;
+}
+
+.admin-auth.signed-in {
+  gap: 8px;
+}
+
+/* ── Small utility buttons ── */
+.admin-small-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 0 14px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+  white-space: nowrap;
+}
+
+.admin-small-button:hover:not(:disabled) {
+  background: var(--soft);
+  border-color: var(--muted);
+}
+
+.admin-small-button:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+}
+
+/* ── Status / message bar ── */
+.admin-message {
+  border-radius: 8px;
+  padding: 11px 16px;
+  margin-bottom: 20px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ── Login placeholder ── */
+.admin-login-panel {
+  display: grid;
+  place-items: center;
+  min-height: 340px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 48px 28px;
+  background: var(--panel);
+  text-align: center;
+}
+
+.admin-login-panel h2 {
+  font-size: clamp(22px, 2.8vw, 34px);
+  margin-top: 10px;
+}
+
+.admin-login-panel p {
+  margin-top: 12px;
+  font-size: 15px;
+  max-width: 420px;
+}
+
+/* ── Stat grid ── */
+.admin-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--line);
+  margin-bottom: 24px;
+}
+
+.admin-stat-grid article {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 20px 22px;
+  background: var(--panel);
+}
+
+.admin-stat-grid span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-stat-grid strong {
+  font-size: 32px;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.admin-stat-grid small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ── Filter / control panel ── */
+.admin-control-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  margin-bottom: 16px;
+}
+
+.admin-control-panel label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-control-panel select {
+  min-width: 140px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-search {
+  flex: 1;
+  min-width: 220px;
+}
+
+.admin-search input {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper);
+  font: inherit;
+  font-size: 13px;
+}
+
+/* ── Status filter bar ── */
+.admin-status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.admin-status-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 14px;
+  background: var(--panel);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 130ms ease, color 130ms ease, border-color 130ms ease;
+}
+
+.admin-status-bar button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.admin-status-bar button.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.admin-status-bar button span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  padding: 0 5px;
+  background: rgba(0,0,0,0.12);
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.admin-status-bar button.is-active span {
+  background: rgba(255,255,255,0.24);
+}
+
+/* ── Two-column workspace ── */
+.admin-workspace {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--line);
+  min-height: 600px;
+}
+
+/* ── Lead list (left panel) ── */
+.lead-list-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-right: 1px solid var(--line);
+  min-height: 0;
+}
+
+.lead-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.lead-list-heading strong {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.lead-list-heading span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.lead-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lead-list button {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: start;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.lead-list button:hover {
+  background: var(--soft);
+}
+
+.lead-list button.is-active {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding-left: 13px;
+}
+
+.lead-list button > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lead-list button strong {
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lead-list button small {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lead-list button em {
+  font-size: 12px;
+  font-style: normal;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lead-list button time {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+/* ── Status dot ── */
+.lead-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.lead-status-dot.status-new       { background: var(--status-new); }
+.lead-status-dot.status-contacted { background: var(--status-contacted); }
+.lead-status-dot.status-qualified { background: var(--status-qualified); }
+.lead-status-dot.status-accepted  { background: var(--status-accepted); }
+.lead-status-dot.status-rejected  { background: var(--status-rejected); }
+
+/* ── Lead detail (right panel) ── */
+.lead-detail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  background: var(--panel);
+  overflow-y: auto;
+}
+
+/* ── Lead detail top ── */
+.lead-detail-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.lead-detail-top h2 {
+  font-size: clamp(22px, 2.4vw, 30px);
+  margin-top: 8px;
+}
+
+.lead-detail-top > div > p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ── Status pill ── */
+.lead-status-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  border-radius: 999px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.lead-status-pill.status-new       { background: rgba(36,86,200,0.1);  color: var(--status-new); }
+.lead-status-pill.status-contacted { background: rgba(217,119,6,0.1);  color: var(--status-contacted); }
+.lead-status-pill.status-qualified { background: rgba(124,58,237,0.1); color: var(--status-qualified); }
+.lead-status-pill.status-accepted  { background: rgba(5,150,105,0.1);  color: var(--status-accepted); }
+.lead-status-pill.status-rejected  { background: rgba(220,38,38,0.1);  color: var(--status-rejected); }
+
+/* ── Action row ── */
+.lead-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lead-action-row a,
+.lead-action-row button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 0 16px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 130ms ease, border-color 130ms ease, color 130ms ease;
+}
+
+.lead-action-row a:first-child { border-color: var(--status-accepted); color: var(--status-accepted); }
+.lead-action-row a:nth-child(2) { border-color: #25d366; color: #128c4e; }
+.lead-action-row a:nth-child(3) { border-color: var(--accent); color: var(--accent); }
+
+.lead-action-row a:hover,
+.lead-action-row button:hover {
+  background: var(--soft);
+}
+
+/* ── Meta grid ── */
+.lead-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.lead-meta-grid article {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--paper);
+}
+
+.lead-meta-grid span {
+  font-size: 11px;
+  font-weight: 850;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lead-meta-grid strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+/* ── Problem card ── */
+.lead-problem-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: var(--paper);
+  display: grid;
+  gap: 8px;
+}
+
+.lead-problem-card span {
+  font-size: 11px;
+  font-weight: 950;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.lead-problem-card p {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.56;
+}
+
+.lead-problem-card small {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* ── Manage grid (status + mark contacted) ── */
+.lead-manage-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.lead-manage-grid label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lead-manage-grid select {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ── Notes field ── */
+.lead-notes-field {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lead-notes-field textarea {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.56;
+  resize: vertical;
+}
+
+.lead-notes-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ── Empty state ── */
+.admin-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 24px;
+  text-align: center;
+  flex: 1;
+}
+
+.admin-empty-state strong {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.admin-empty-state p {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 260px;
+}
+
+/* ── Responsive: admin ── */
+@media (max-width: 1100px) {
+  .admin-stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .admin-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-list-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    max-height: 340px;
+  }
+
+  .lead-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lead-manage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .admin-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-heading {
+    flex-direction: column;
+  }
+
+  .admin-auth input {
+    width: 100%;
+  }
+
+  .lead-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-control-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-control-panel select,
+  .admin-search input {
+    width: 100%;
+  }
+}
