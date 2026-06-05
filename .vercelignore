@@ -1,0 +1,4 @@
+tools/
+docs/
+*.tsbuildinfo
+.DS_Store
